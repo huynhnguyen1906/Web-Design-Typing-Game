@@ -1,3 +1,9 @@
 {
-  "extends": "next/core-web-vitals"
+	"extends": "next/core-web-vitals",
+	"rules": {
+		"spellcheck/spell-checker": "off",
+		"no-unused-vars": "off",
+		"no-console": "off"
+	},
+	"plugins": ["spellcheck"]
 }
