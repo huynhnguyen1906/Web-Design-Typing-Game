@@ -5,7 +5,7 @@ export class KeywordManager {
 	private allKeywords: string[];
 
 	constructor() {
-		this.allKeywords = Object.keys(keywords);
+		this.allKeywords = Array.from(new Set(Object.keys(keywords)));
 		this.unusedKeywords = [...this.allKeywords];
 	}
 

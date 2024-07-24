@@ -1,0 +1,77 @@
+.container {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: auto;
+	scrollbar-width: none;
+	.infoDiv {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-end;
+		top: 1rem;
+		right: 1rem;
+		span {
+			font-size: 2.4rem;
+		}
+	}
+	table {
+		tr {
+			td {
+				vertical-align: top;
+				text-align: left;
+				&:first-child {
+					width: 4.5rem;
+					text-align: right;
+					border-right: 1px solid var(--vs-border-color);
+				}
+				&:last-child {
+					width: auto;
+					text-align: left;
+					padding-left: 5px;
+				}
+			}
+		}
+		min-height: 24px;
+		line-height: 24px;
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+		max-width: 80%;
+		.line {
+			line-height: 24px;
+			height: 100%;
+			text-align: right;
+			padding-right: 8px;
+		}
+		.const {
+			color: var(--const-text-color);
+			margin-right: 5px;
+		}
+		.var {
+			color: var(--useful-var-color);
+			margin-right: 5px;
+		}
+		.string {
+			color: var(--string-color);
+			margin-left: 5px;
+		}
+		.stringSpace {
+			margin: 0;
+		}
+		.console {
+			color: var(--useful-var-color);
+		}
+		.log {
+			color: var(--log-color);
+		}
+		.input {
+			display: inline-block;
+			min-width: 3px;
+			width: auto;
+			outline: none;
+			border: none;
+		}
+	}
+}

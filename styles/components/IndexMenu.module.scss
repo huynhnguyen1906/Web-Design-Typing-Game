@@ -1,0 +1,20 @@
+.menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	.menuItem {
+		display: flex;
+		gap: 2px;
+		user-select: none;
+		span {
+			visibility: hidden;
+		}
+		.activeText {
+			color: var(--vs-text-accent-color);
+		}
+		.active {
+			visibility: visible;
+		}
+	}
+}

@@ -38,6 +38,5 @@ export const convertToRomaji = (kana: string): Record<number, string[]> => {
 		}
 	}
 
-	console.log(result);
 	return result;
 };

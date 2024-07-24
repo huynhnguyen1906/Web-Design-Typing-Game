@@ -1,8 +1,27 @@
 @import "bootstrap/scss/bootstrap";
 
-@import url("https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wdth,wght@100..125,100..700&display=swap");
 
+:root {
+	--vs-main-color: #1f1f1f;
+	--vs-base-color: #181818;
+	--vs-logo-color: #d9d9d9;
+	--vs-text-accent-color: #d9d9d9;
+	--vs-text-color: #cccccc;
+	--vs-border-color: #323232;
+	--vs-text-accent-color: #4ca6f6;
+	--firstPlace-text-color: #ffd700;
+	--secondPlace-text-color: #808080;
+	--thirdPlace-text-color: #8c4841;
+	--commentOut-text-color: rgba(204, 204, 204, 0.7);
+	--const-text-color: #f34cb9;
+	--useless-var-color: #856ab4;
+	--useful-var-color: #9a86f0;
+	--log-color: #20e3b2;
+	--string-color: #eac394;
+	--vs-border-color: #323232;
+}
 :where(a, button) {
 	text-decoration: none;
 	color: #000;
@@ -24,6 +43,12 @@
 html {
 	font-size: 62.5%;
 	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 *,
 *::before,
@@ -52,9 +77,15 @@ h6 {
 	margin: 0;
 }
 body {
-	font-family: "Roboto", sans-serif;
+	font-family: "M PLUS Code Latin", "Roboto";
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
-	overflow-x: hidden;
+	width: 85.8rem;
+	height: 49.8rem;
+	background: url("../public/images/GlobalBackGround.svg") center center no-repeat fixed;
+	padding-top: 36px;
+	padding-bottom: 16px;
+	color: var(--vs-text-color);
+	position: relative;
 }

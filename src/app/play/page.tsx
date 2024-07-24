@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { convertToRomaji } from "@/utils/convertToRomaji";
 import { keywords } from "@/utils/keyword";
@@ -7,6 +7,7 @@ import { KeywordManager } from "@/utils/keywordManager";
 import { isCorrectRomaji } from "@/utils/isCorrectRomaji";
 import { updateRomajiDisplay } from "@/utils/updateRomajiDisplay";
 import { getColoredRomajiDisplay } from "@/utils/getColoredRomajiDisplay";
+import Style from "@styles/play.module.scss";
 
 const keywordManager = new KeywordManager();
 
@@ -15,6 +16,9 @@ export default function Home() {
 	const [currentKana, setCurrentKana] = useState<string | null>(null);
 	const [score, setScore] = useState(0);
 	const [romajiDisplay, setRomajiDisplay] = useState<string[]>([]);
+	const [completedRows, setCompletedRows] = useState<JSX.Element[]>([]);
+	const [completedValues, setCompletedValues] = useState<string[]>([]);
+	const [isWordCompleted, setIsWordCompleted] = useState(false);
 	const inputRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -38,16 +42,76 @@ export default function Home() {
 		setRomajiDisplay(newDisplay);
 
 		if (isCorrectRomaji(value, romajiMap)) {
-			const points = (currentKana?.length || 0) * 10;
-			setScore(score + points);
+			setIsWordCompleted(true);
+		}
+	};
+
+	useEffect(() => {
+		if (isWordCompleted) {
+			setScore((prevScore) => {
+				const points = (currentKana?.length || 0) * 10;
+				return prevScore + points;
+			});
+
+			setCompletedRows((prevRows) => [
+				...prevRows,
+				<React.Fragment key={`row-${prevRows.length}`}>
+					<tr>
+						<td>
+							<span className={Style.line}>{prevRows.length * 3 + 1}</span>
+						</td>
+						<td>
+							<span className={Style.const}>const</span>
+							<span className={Style.var}>kana</span>
+							<span>=</span>
+							<span className={Style.string}>&quot;{currentKana && keywords[currentKana]}&quot;</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span className={Style.line}>{prevRows.length * 3 + 2}</span>
+						</td>
+						<td>
+							<span className={Style.const}>const</span>
+							<span className={Style.var}>romaji</span>
+							<span>=</span>
+							<span className={Style.string}>
+								{getColoredRomajiDisplay(romajiDisplay, inputValue).map(({ key, coloredRomaji }) => (
+									<span key={key} dangerouslySetInnerHTML={{ __html: coloredRomaji }} />
+								))}
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span className={Style.line}>{prevRows.length * 3 + 3}</span>
+						</td>
+						<td>
+							<span className={Style.console}>console</span>.<span className={Style.log}>log</span>
+							<span className={Style.bracket}>(</span>
+							<span className={`${Style.string} ${Style.stringSpace}`}>&quot;{inputValue}&quot;</span>
+							<span className={Style.bracket}>)</span>
+						</td>
+					</tr>
+				</React.Fragment>,
+			]);
+
+			setCompletedValues((prevValues) => [...prevValues, inputValue]);
+
 			setInputValue("");
 			setCurrentKana(keywordManager.getRandomKana());
 			setRomajiDisplay([]);
+			setIsWordCompleted(false);
 
-			// Clear the content of the editable div
 			if (inputRef.current) {
 				inputRef.current.textContent = "";
 			}
+		}
+	}, [isWordCompleted, currentKana, inputValue, romajiDisplay]);
+
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
 		}
 	};
 
@@ -56,32 +120,65 @@ export default function Home() {
 	}
 
 	return (
-		<div>
-			<h1>
-				<span>const </span>
-				{getColoredRomajiDisplay(romajiDisplay, inputValue).map(({ key, coloredRomaji }) => (
-					<span key={key} dangerouslySetInnerHTML={{ __html: coloredRomaji }} />
-				))}
-				<span> = </span>
-				{keywords[currentKana]}
-			</h1>
-			<div>
-				<span>console.log(&quot;</span>
-				<div
-					ref={inputRef}
-					contentEditable
-					onInput={handleInputChange}
-					style={{
-						display: "inline-block",
-						minWidth: "3px",
-						width: "auto",
-						outline: "none",
-						border: "none",
-					}}
-				></div>
-				<span>&quot;)</span>
+		<div className={Style.container}>
+			<table>
+				<tbody>
+					{completedRows}
+					<tr key={`current-${completedRows.length}-1`}>
+						<td>
+							<span className={Style.line}>{completedRows.length * 3 + 1}</span>
+						</td>
+						<td>
+							<span className={Style.const}>const</span>
+							<span className={Style.var}>kana</span>
+							<span>=</span>
+							<span className={Style.string}>&quot;{keywords[currentKana]}&quot;</span>
+						</td>
+					</tr>
+					<tr key={`current-${completedRows.length}-2`}>
+						<td>
+							<span className={Style.line}>{completedRows.length * 3 + 2}</span>
+						</td>
+						<td>
+							<span className={Style.const}>const</span>
+							<span className={Style.var}>romaji</span>
+							<span>=</span>
+							<span className={Style.string}>
+								{getColoredRomajiDisplay(romajiDisplay, inputValue).map(({ key, coloredRomaji }) => (
+									<span key={key} dangerouslySetInnerHTML={{ __html: coloredRomaji }} />
+								))}
+							</span>
+						</td>
+					</tr>
+					<tr key={`current-${completedRows.length}-3`}>
+						<td>
+							<span className={Style.line}>{completedRows.length * 3 + 3}</span>
+						</td>
+						<td>
+							<span className={Style.console}>console</span>.<span className={Style.log}>log</span>
+							<span className={Style.bracket}>(</span>
+							<span className={`${Style.string} ${Style.stringSpace}`}>
+								&quot;
+								<div
+									ref={inputRef}
+									contentEditable
+									onInput={handleInputChange}
+									onKeyDown={handleKeyDown}
+									className={Style.input}
+								></div>
+								&quot;
+							</span>
+							<span className={Style.bracket}>)</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div className={Style.infoDiv}>
+				<p>
+					残り<span>60</span>秒
+				</p>
+				<p>Score: {score}</p>
 			</div>
-			<div>Score: {score}</div>
 		</div>
 	);
 }
