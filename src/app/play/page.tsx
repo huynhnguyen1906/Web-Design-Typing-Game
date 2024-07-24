@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter từ next/navigation
 import { convertToRomaji } from "@/utils/convertToRomaji";
 import { keywords } from "@/utils/keyword";
 import { KeywordManager } from "@/utils/keywordManager";
@@ -8,18 +8,21 @@ import { isCorrectRomaji } from "@/utils/isCorrectRomaji";
 import { updateRomajiDisplay } from "@/utils/updateRomajiDisplay";
 import { getColoredRomajiDisplay } from "@/utils/getColoredRomajiDisplay";
 import Style from "@styles/play.module.scss";
-
+import Spinner from "react-bootstrap/Spinner";
 const keywordManager = new KeywordManager();
 
 export default function Home() {
 	const [inputValue, setInputValue] = useState("");
 	const [currentKana, setCurrentKana] = useState<string | null>(null);
 	const [score, setScore] = useState(0);
+	const [timeLeft, setTimeLeft] = useState(60);
+	const [correctWords, setCorrectWords] = useState(0);
 	const [romajiDisplay, setRomajiDisplay] = useState<string[]>([]);
 	const [completedRows, setCompletedRows] = useState<JSX.Element[]>([]);
 	const [completedValues, setCompletedValues] = useState<string[]>([]);
 	const [isWordCompleted, setIsWordCompleted] = useState(false);
 	const inputRef = useRef<HTMLDivElement>(null);
+	const router = useRouter();
 
 	useEffect(() => {
 		setCurrentKana(keywordManager.getRandomKana());
@@ -33,6 +36,23 @@ export default function Home() {
 			setRomajiDisplay(initialRomajiDisplay);
 		}
 	}, [romajiMap, currentKana]);
+
+	useEffect(() => {
+		if (timeLeft > 0) {
+			const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+			return () => clearTimeout(timer);
+		} else {
+			const storedScore = parseInt(localStorage.getItem("score") || "0");
+			const storedCorrectWords = parseInt(localStorage.getItem("correctWords") || "0");
+			if (score > storedScore) {
+				localStorage.setItem("score", score.toString());
+			}
+			if (correctWords > storedCorrectWords) {
+				localStorage.setItem("correctWords", correctWords.toString());
+			}
+			router.push("/score");
+		}
+	}, [timeLeft, score, correctWords, router]);
 
 	const handleInputChange = (e: React.FormEvent<HTMLDivElement>) => {
 		const value = e.currentTarget.textContent || "";
@@ -53,10 +73,12 @@ export default function Home() {
 				return prevScore + points;
 			});
 
+			setCorrectWords((prevCorrectWords) => prevCorrectWords + 1);
+
 			setCompletedRows((prevRows) => [
 				...prevRows,
 				<React.Fragment key={`row-${prevRows.length}`}>
-					<tr>
+					<tr key={`row-${prevRows.length}-1`}>
 						<td>
 							<span className={Style.line}>{prevRows.length * 3 + 1}</span>
 						</td>
@@ -67,7 +89,7 @@ export default function Home() {
 							<span className={Style.string}>&quot;{currentKana && keywords[currentKana]}&quot;</span>
 						</td>
 					</tr>
-					<tr>
+					<tr key={`row-${prevRows.length}-2`}>
 						<td>
 							<span className={Style.line}>{prevRows.length * 3 + 2}</span>
 						</td>
@@ -82,7 +104,7 @@ export default function Home() {
 							</span>
 						</td>
 					</tr>
-					<tr>
+					<tr key={`row-${prevRows.length}-3`}>
 						<td>
 							<span className={Style.line}>{prevRows.length * 3 + 3}</span>
 						</td>
@@ -102,12 +124,16 @@ export default function Home() {
 			setCurrentKana(keywordManager.getRandomKana());
 			setRomajiDisplay([]);
 			setIsWordCompleted(false);
-
-			if (inputRef.current) {
-				inputRef.current.textContent = "";
-			}
 		}
-	}, [isWordCompleted, currentKana, inputValue, romajiDisplay]);
+	}, [isWordCompleted, currentKana, inputValue, romajiDisplay, completedRows.length]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			if (inputRef.current) {
+				inputRef.current.focus();
+			}
+		}, 2);
+	}, [completedRows]);
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
 		if (e.key === "Enter") {
@@ -115,67 +141,75 @@ export default function Home() {
 		}
 	};
 
+	const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+		e.preventDefault();
+	};
+
 	if (!currentKana) {
-		return <div>Loading...</div>;
+		return <Spinner animation="border"></Spinner>;
 	}
 
 	return (
-		<div className={Style.container}>
-			<table>
-				<tbody>
-					{completedRows}
-					<tr key={`current-${completedRows.length}-1`}>
-						<td>
-							<span className={Style.line}>{completedRows.length * 3 + 1}</span>
-						</td>
-						<td>
-							<span className={Style.const}>const</span>
-							<span className={Style.var}>kana</span>
-							<span>=</span>
-							<span className={Style.string}>&quot;{keywords[currentKana]}&quot;</span>
-						</td>
-					</tr>
-					<tr key={`current-${completedRows.length}-2`}>
-						<td>
-							<span className={Style.line}>{completedRows.length * 3 + 2}</span>
-						</td>
-						<td>
-							<span className={Style.const}>const</span>
-							<span className={Style.var}>romaji</span>
-							<span>=</span>
-							<span className={Style.string}>
-								{getColoredRomajiDisplay(romajiDisplay, inputValue).map(({ key, coloredRomaji }) => (
-									<span key={key} dangerouslySetInnerHTML={{ __html: coloredRomaji }} />
-								))}
-							</span>
-						</td>
-					</tr>
-					<tr key={`current-${completedRows.length}-3`}>
-						<td>
-							<span className={Style.line}>{completedRows.length * 3 + 3}</span>
-						</td>
-						<td>
-							<span className={Style.console}>console</span>.<span className={Style.log}>log</span>
-							<span className={Style.bracket}>(</span>
-							<span className={`${Style.string} ${Style.stringSpace}`}>
-								&quot;
-								<div
-									ref={inputRef}
-									contentEditable
-									onInput={handleInputChange}
-									onKeyDown={handleKeyDown}
-									className={Style.input}
-								></div>
-								&quot;
-							</span>
-							<span className={Style.bracket}>)</span>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+		<div className={Style.container} onMouseDown={handleMouseDown}>
+			<div className={Style.tableContainer}>
+				<table>
+					<tbody>
+						{completedRows}
+						<tr key={`current-${completedRows.length}-1`}>
+							<td>
+								<span className={Style.line}>{completedRows.length * 3 + 1}</span>
+							</td>
+							<td>
+								<span className={Style.const}>const</span>
+								<span className={Style.var}>kana</span>
+								<span>=</span>
+								<span className={Style.string}>&quot;{keywords[currentKana]}&quot;</span>
+							</td>
+						</tr>
+						<tr key={`current-${completedRows.length}-2`}>
+							<td>
+								<span className={Style.line}>{completedRows.length * 3 + 2}</span>
+							</td>
+							<td>
+								<span className={Style.const}>const</span>
+								<span className={Style.var}>romaji</span>
+								<span>=</span>
+								<span className={Style.string}>
+									{getColoredRomajiDisplay(romajiDisplay, inputValue).map(({ key, coloredRomaji }) => (
+										<span key={key} dangerouslySetInnerHTML={{ __html: coloredRomaji }} />
+									))}
+								</span>
+							</td>
+						</tr>
+						<tr key={`current-${completedRows.length}-3`}>
+							<td>
+								<span className={Style.line}>{completedRows.length * 3 + 3}</span>
+							</td>
+							<td>
+								<span className={Style.console}>console</span>.<span className={Style.log}>log</span>
+								<span className={Style.bracket}>(</span>
+								<span className={`${Style.string} ${Style.stringSpace}`}>
+									&quot;
+									<div
+										ref={inputRef}
+										contentEditable
+										onInput={handleInputChange}
+										onKeyDown={handleKeyDown}
+										onMouseDown={handleMouseDown}
+										className={Style.input}
+									></div>
+									&quot;
+								</span>
+								<span className={Style.bracket}>)</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div className={Style.hollowBlock}></div>
+			</div>
 			<div className={Style.infoDiv}>
 				<p>
-					残り<span>60</span>秒
+					残り<span>{timeLeft}</span>秒
 				</p>
 				<p>Score: {score}</p>
 			</div>
