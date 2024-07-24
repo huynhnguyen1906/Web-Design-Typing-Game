@@ -9,6 +9,7 @@ import { updateRomajiDisplay } from "@/utils/updateRomajiDisplay";
 import { getColoredRomajiDisplay } from "@/utils/getColoredRomajiDisplay";
 import Style from "@styles/play.module.scss";
 import Spinner from "react-bootstrap/Spinner";
+
 const keywordManager = new KeywordManager();
 
 export default function Home() {
@@ -25,6 +26,10 @@ export default function Home() {
 	const router = useRouter();
 
 	useEffect(() => {
+		// Reset localStorage on page load
+		localStorage.setItem("score", "0");
+		localStorage.setItem("correctWords", "0");
+
 		setCurrentKana(keywordManager.getRandomKana());
 	}, []);
 
@@ -205,8 +210,8 @@ export default function Home() {
 						</tr>
 					</tbody>
 				</table>
-				<div className={Style.hollowBlock}></div>
 			</div>
+			<div className={Style.hollowBlock}></div>
 			<div className={Style.infoDiv}>
 				<p>
 					残り<span>{timeLeft}</span>秒
