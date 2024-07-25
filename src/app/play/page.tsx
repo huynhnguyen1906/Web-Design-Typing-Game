@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { useRouter } from "next/navigation"; // Import useRouter từ next/navigation
+import { useRouter } from "next/navigation";
 import { convertToRomaji } from "@/utils/convertToRomaji";
 import { keywords } from "@/utils/keyword";
 import { KeywordManager } from "@/utils/keywordManager";
@@ -26,11 +26,24 @@ export default function Home() {
 	const router = useRouter();
 
 	useEffect(() => {
-		// Reset localStorage on page load
 		localStorage.setItem("score", "0");
 		localStorage.setItem("correctWords", "0");
 
 		setCurrentKana(keywordManager.getRandomKana());
+
+		const disableMouseEvents = (e: MouseEvent) => {
+			e.preventDefault();
+		};
+
+		document.addEventListener("mousedown", disableMouseEvents);
+		document.addEventListener("mouseup", disableMouseEvents);
+		document.addEventListener("click", disableMouseEvents);
+
+		return () => {
+			document.removeEventListener("mousedown", disableMouseEvents);
+			document.removeEventListener("mouseup", disableMouseEvents);
+			document.removeEventListener("click", disableMouseEvents);
+		};
 	}, []);
 
 	const romajiMap = useMemo(() => (currentKana ? convertToRomaji(currentKana) : {}), [currentKana]);
@@ -144,10 +157,9 @@ export default function Home() {
 		if (e.key === "Enter") {
 			e.preventDefault();
 		}
-	};
-
-	const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-		e.preventDefault();
+		if (e.key === "Escape") {
+			router.push("/");
+		}
 	};
 
 	if (!currentKana) {
@@ -155,7 +167,7 @@ export default function Home() {
 	}
 
 	return (
-		<div className={Style.container} onMouseDown={handleMouseDown}>
+		<div className={Style.container}>
 			<div className={Style.tableContainer}>
 				<table>
 					<tbody>
@@ -200,7 +212,6 @@ export default function Home() {
 										contentEditable
 										onInput={handleInputChange}
 										onKeyDown={handleKeyDown}
-										onMouseDown={handleMouseDown}
 										className={Style.input}
 									></div>
 									&quot;
@@ -211,7 +222,9 @@ export default function Home() {
 					</tbody>
 				</table>
 			</div>
-			<div className={Style.hollowBlock}></div>
+			<div className={Style.hollowBlock}>
+				<span>Press Esc to back to menu</span>
+			</div>
 			<div className={Style.infoDiv}>
 				<p>
 					残り<span>{timeLeft}</span>秒

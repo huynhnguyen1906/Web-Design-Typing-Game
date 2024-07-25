@@ -34,6 +34,7 @@
 			td {
 				vertical-align: top;
 				text-align: left;
+				white-space: nowrap;
 				&:first-child {
 					width: 4.5rem;
 					text-align: right;
@@ -96,4 +97,7 @@
 	height: 40%;
 	background-color: var(--vs-main-color);
 	flex-shrink: 0;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
 }
