@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 	keywords: "タイピング, ウェブゲーム, コーディング, 学生, WEB打",
 	authors: [{ name: "居眠りぼーいず" }],
 	icons: {
-		icon: "/favicon.ico",
+		icon: "/favicon.png",
 	},
 	openGraph: {
 		title: "WEB打 - タイピング速度を上げるウェブゲーム",
