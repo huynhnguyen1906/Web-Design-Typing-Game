@@ -120,7 +120,7 @@ export default function Page() {
 					</tr>
 					<tr>
 						<td>
-							<span className={Style.line}>2</span>
+							<span className={Style.line}>8</span>
 						</td>
 						<td></td>
 						<td>
@@ -129,7 +129,7 @@ export default function Page() {
 					</tr>
 					<tr>
 						<td>
-							<span className={Style.line}>2</span>
+							<span className={Style.line}>9</span>
 						</td>
 						<td></td>
 						<td>
@@ -140,7 +140,7 @@ export default function Page() {
 					</tr>
 					<tr>
 						<td>
-							<span className={Style.line}>5</span>
+							<span className={Style.line}>10</span>
 						</td>
 						<td></td>
 						<td></td>
@@ -148,7 +148,7 @@ export default function Page() {
 					</tr>
 					<tr>
 						<td>
-							<span className={Style.line}>6</span>
+							<span className={Style.line}>11</span>
 						</td>
 						<td></td>
 						<td></td>
@@ -160,7 +160,7 @@ export default function Page() {
 					</tr>
 					<tr>
 						<td>
-							<span className={Style.line}>7</span>
+							<span className={Style.line}>12</span>
 						</td>
 						<td></td>
 						<td></td>
@@ -168,7 +168,7 @@ export default function Page() {
 					</tr>
 					<tr>
 						<td>
-							<span className={Style.line}>5</span>
+							<span className={Style.line}>13</span>
 						</td>
 						<td></td>
 						<td></td>
@@ -176,7 +176,7 @@ export default function Page() {
 					</tr>
 					<tr>
 						<td>
-							<span className={Style.line}>6</span>
+							<span className={Style.line}>14</span>
 						</td>
 						<td></td>
 						<td></td>
@@ -188,7 +188,7 @@ export default function Page() {
 					</tr>
 					<tr>
 						<td>
-							<span className={Style.line}>7</span>
+							<span className={Style.line}>15</span>
 						</td>
 						<td></td>
 						<td></td>
@@ -196,7 +196,7 @@ export default function Page() {
 					</tr>
 					<tr>
 						<td>
-							<span className={Style.line}>2</span>
+							<span className={Style.line}>16</span>
 						</td>
 						<td></td>
 						<td>
@@ -205,7 +205,7 @@ export default function Page() {
 					</tr>
 					<tr>
 						<td>
-							<span className={Style.line}>1</span>
+							<span className={Style.line}>17</span>
 						</td>
 						<td>
 							<span className={Style.yellowA}>&#125;</span>
