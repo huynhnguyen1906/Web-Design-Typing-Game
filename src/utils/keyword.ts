@@ -29,7 +29,7 @@ export const keywords: Record<string, string> = {
 	figma: "Figma",
 	vscode: "VSCode",
 	photoshop: "Photoshop",
-	きんがんがんばるぴかりん: "禁煙頑張るピカリン",
+	きんえんがんばるぴかりん: "禁煙頑張るピカリン",
 	ともぐるめ: "ともぐるめ",
 	とじたぐわすれないように: "閉じタグ忘れないように",
 	ふぉーく: "フォーク",
