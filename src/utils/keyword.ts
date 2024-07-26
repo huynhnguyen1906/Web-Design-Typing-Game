@@ -92,7 +92,7 @@ export const keywords: Record<string, string> = {
 	googlefonts: "Google Fonts",
 	notion: "Notion",
 	chatgpt: "ChatGPT",
-	eccのwifiは弱い: "ECCのWi-Fiは弱い",
+	eccのwifiはよわい: "ECCのWi-Fiは弱い",
 	うらやましいmacbookairm2: "羨ましいMacBook Air M2",
 	なぜmacbookairm1なのか: "なぜMacBook Air M1なのか",
 	postman: "Postman",
