@@ -1,25 +1,25 @@
 .navBar {
-	width: 3rem;
-	height: 44.7rem;
-	position: absolute;
-	left: 0;
-	top: 36px;
-	padding: 1rem 0;
-	background: var(--vs-base-color);
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	.IconBox {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 2rem;
-		svg {
-			height: 15px;
-			width: 15px;
-			cursor: pointer;
-		}
-	}
+    width: 3rem;
+    height: 44.7rem;
+    position: absolute;
+    left: 0;
+    top: 36px;
+    padding: 1rem 0;
+    background: var(--vs-base-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .IconBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        svg {
+            height: 15px;
+            width: 15px;
+            cursor: pointer;
+        }
+    }
 }

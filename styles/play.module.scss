@@ -1,103 +1,103 @@
 .container {
-	width: 100%;
-	height: 100%;
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	overflow: hidden;
-	scrollbar-width: none;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    scrollbar-width: none;
 }
 
 .infoDiv {
-	position: absolute;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-end;
-	top: 1rem;
-	right: 1rem;
-	span {
-		font-size: 2.4rem;
-	}
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    top: 1rem;
+    right: 1rem;
+    span {
+        font-size: 2.4rem;
+    }
 }
 
 .tableContainer {
-	flex-grow: 1;
-	overflow-y: auto;
-	display: flex;
-	flex-direction: column;
-	scrollbar-width: none;
-	table {
-		width: 100%;
-		border-collapse: collapse;
-		tr {
-			td {
-				vertical-align: top;
-				text-align: left;
-				white-space: nowrap;
-				&:first-child {
-					width: 4.5rem;
-					text-align: right;
-					border-right: 1px solid var(--vs-border-color);
-				}
-				&:last-child {
-					width: auto;
-					text-align: left;
-					padding-left: 5px;
-				}
-			}
-		}
-	}
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: none;
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        tr {
+            td {
+                vertical-align: top;
+                text-align: left;
+                white-space: nowrap;
+                &:first-child {
+                    width: 4.5rem;
+                    text-align: right;
+                    border-right: 1px solid var(--vs-border-color);
+                }
+                &:last-child {
+                    width: auto;
+                    text-align: left;
+                    padding-left: 5px;
+                }
+            }
+        }
+    }
 }
 
 .line {
-	line-height: 24px;
-	height: 100%;
-	text-align: right;
-	padding-right: 8px;
+    line-height: 24px;
+    height: 100%;
+    text-align: right;
+    padding-right: 8px;
 }
 
 .const {
-	color: var(--const-text-color);
-	margin-right: 5px;
+    color: var(--const-text-color);
+    margin-right: 5px;
 }
 
 .var {
-	color: var(--useful-var-color);
-	margin-right: 5px;
+    color: var(--useful-var-color);
+    margin-right: 5px;
 }
 
 .string {
-	color: var(--string-color);
-	margin-left: 5px;
+    color: var(--string-color);
+    margin-left: 5px;
 }
 
 .stringSpace {
-	margin: 0;
+    margin: 0;
 }
 
 .console {
-	color: var(--useful-var-color);
+    color: var(--useful-var-color);
 }
 
 .log {
-	color: var(--log-color);
+    color: var(--log-color);
 }
 
 .input {
-	display: inline-block;
-	min-width: 1px;
-	width: auto;
-	outline: none;
-	border: none;
+    display: inline-block;
+    min-width: 1px;
+    width: auto;
+    outline: none;
+    border: none;
 }
 
 .hollowBlock {
-	width: 100%;
-	height: 40%;
-	background-color: var(--vs-main-color);
-	flex-shrink: 0;
-	display: flex;
-	justify-content: center;
-	align-items: flex-end;
+    width: 100%;
+    height: 40%;
+    background-color: var(--vs-main-color);
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
 }
