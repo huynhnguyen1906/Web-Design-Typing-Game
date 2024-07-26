@@ -72,7 +72,7 @@ export const keywords: Record<string, string> = {
     gめっせぐんま: "Gメッセ群馬",
     ついんめっせしずおか: "ツインメッセ静岡",
     cmyk: "CMYK",
-    rga: "RGB",
+    rgb: "RGB",
     ai: "ai",
     psd: "psd",
     pdf: "pdf",
