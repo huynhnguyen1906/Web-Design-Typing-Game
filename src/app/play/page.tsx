@@ -16,7 +16,7 @@ export default function Home() {
     const [inputValue, setInputValue] = useState('');
     const [currentKana, setCurrentKana] = useState<string | null>(null);
     const [score, setScore] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(30);
+    const [timeLeft, setTimeLeft] = useState(90);
     const [correctWords, setCorrectWords] = useState(0);
     const [romajiDisplay, setRomajiDisplay] = useState<string[]>([]);
     const [completedRows, setCompletedRows] = useState<JSX.Element[]>([]);
