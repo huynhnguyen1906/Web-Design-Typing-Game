@@ -2,7 +2,7 @@
 
 # Web Design Typing Game
 
-Js と TypeScript で構築された、Web 開発関連のキーワードに特化したタイピングゲームです。
+JS と TypeScript で構築された、Web 開発関連のキーワードに特化したタイピングゲームです。
 
 ## Features
 
