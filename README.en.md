@@ -4,6 +4,16 @@
 
 A typing game focused on Web development-related keywords, built with Next.js and TypeScript.
 
+<p align="center">
+  <img src="/public/readme1.png" width="100%"/>
+</p>
+
+####
+
+<p align="center">
+  <img src="/public/readme2.png" width="100%"/>
+</p>
+
 ## Features
 
 -   Real-time typing practice with web development keywords

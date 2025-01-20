@@ -4,6 +4,16 @@
 
 JS と TypeScript で構築された、Web 開発関連のキーワードに特化したタイピングゲームです。
 
+<p align="center">
+  <img src="/public/readme1.png" width="100%"/>
+</p>
+
+####
+
+<p align="center">
+  <img src="/public/readme2.png" width="100%"/>
+</p>
+
 ## 特徴
 
 -   Web 開発キーワードによるリアルタイムタイピング練習
