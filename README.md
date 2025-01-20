@@ -45,3 +45,16 @@ npm run build
 ```sh
 npm run start
 ```
+
+### Project Structure
+
+-   `app` - Main application components
+-   `components` - Reusable components
+-   `styles` - Scss modules
+-   `utils` - Utility functions
+-   `public` - Static assets
+
+## Controls
+
+-   Start game / restart: Press `Enter` key
+-   Return to main menu: Press `Esc` key
