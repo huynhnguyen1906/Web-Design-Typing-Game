@@ -4,7 +4,7 @@
 
 JS と TypeScript で構築された、Web 開発関連のキーワードに特化したタイピングゲームです。
 
-## Features
+## 特徴
 
 -   Web 開発キーワードによるリアルタイムタイピング練習
 -   日本語入力対応
@@ -13,7 +13,7 @@ JS と TypeScript で構築された、Web 開発関連のキーワードに特�
 -   コードエディタ風のインターフェース
 -   キーボードショートカット対応
 
-## Tech Stack
+## 技術スタック
 
 -   [Next.js](https://nextjs.org/) 14.2.5
 -   React 18
@@ -22,7 +22,7 @@ JS と TypeScript で構築された、Web 開発関連のキーワードに特�
 -   React Bootstrap
 -   React Icons
 
-## Getting Started
+## 始め方
 
 1. 依存関係のインストール:
 
